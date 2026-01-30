@@ -19,3 +19,5 @@ with open("data_mahasiswa.txt","r", encoding="utf-8") as file:
         baris = baris
         print("Baris Ke-", jumlah_baris)
         print("Isinya :", baris)
+        
+print("Aku Bisa YEY")
