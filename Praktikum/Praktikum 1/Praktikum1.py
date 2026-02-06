@@ -73,3 +73,5 @@ with open("data_mahasiswa.txt","r", encoding="utf-8") as file:
         
 print("---Menampilkan Data Dictionary---")
 print(data_dict)
+
+#Tes Repo Github
