@@ -2,9 +2,9 @@
 # TUGAS HANDS-ON MODUL 1
 # Studi Kasus: Sistem Stok Barang Kantin (Berbasis File .txt)
 #
-# Nama :
-# NIM :
-# Kelas :
+# Nama : Haidar Hafizh Izzuddin
+# NIM : J0403251031
+# Kelas : TPL A2
 # ==========================================================
 
 # -------------------------------
@@ -208,4 +208,5 @@ def main():
 
 
 # Menjalankan program utama
+
 main()
