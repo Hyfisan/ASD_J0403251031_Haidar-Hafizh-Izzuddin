@@ -1,0 +1,71 @@
+# Nama : Haidar Hafizh Izzuddin
+# NIM : J0403251031
+# Kelas : A2
+# Praktikum 13 - Graph III: Spanning Tree
+
+# ==========================================================
+# Latihan 4 - Studi Kasus: Jaringan Kabel Antar Gedung
+# ==========================================================
+# Program ini menggunakan algoritma Kruskal untuk menentukan
+# jaringan kabel antar gedung dengan total biaya minimum.
+
+# Daftar edge: (biaya, gedung1, gedung2)
+edges = [
+    (4, 'GedungA', 'GedungB'),
+    (2, 'GedungA', 'GedungC'),
+    (3, 'GedungB', 'GedungD'),
+    (1, 'GedungC', 'GedungD'),
+    (5, 'GedungA', 'GedungD')
+]
+
+# Daftar node/gedung
+nodes = ['GedungA', 'GedungB', 'GedungC', 'GedungD']
+
+# Membuat parent untuk struktur Disjoint Set / Union-Find
+parent = {}
+for node in nodes:
+    parent[node] = node
+
+
+def find(node):
+    # Mencari parent utama dari suatu node
+    if parent[node] != node:
+        parent[node] = find(parent[node])
+    return parent[node]
+
+
+def union(node1, node2):
+    # Menggabungkan dua kelompok node jika belum terhubung
+    root1 = find(node1)
+    root2 = find(node2)
+
+    if root1 != root2:
+        parent[root2] = root1
+        return True
+    return False
+
+
+# Mengurutkan edge berdasarkan biaya terkecil
+edges.sort()
+
+mst = []
+total_cost = 0
+
+for cost, u, v in edges:
+    # Edge dipilih jika tidak membentuk cycle
+    if union(u, v):
+        mst.append((u, v, cost))
+        total_cost += cost
+
+print("Jaringan kabel minimum:")
+for edge in mst:
+    print(edge)
+
+print("Total biaya minimum =", total_cost)
+
+# Jawaban Analisis:
+# 1. Algoritma yang digunakan adalah Kruskal.
+# 2. Edge yang dipilih adalah GedungC-GedungD, GedungA-GedungC, dan GedungB-GedungD.
+# 3. Total biaya minimum adalah 6.
+# 4. MST cocok digunakan pada kasus ini karena kampus ingin semua gedung terhubung
+#    dengan biaya pemasangan kabel paling minimum dan tanpa jalur kabel berlebih.

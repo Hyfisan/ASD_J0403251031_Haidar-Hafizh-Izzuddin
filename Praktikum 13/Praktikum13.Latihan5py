@@ -1,0 +1,73 @@
+# Nama : Haidar Hafizh Izzuddin
+# NIM : J0403251031
+# Kelas : A2
+# Praktikum 13 - Graph III: Spanning Tree
+
+# ==========================================================
+# Latihan 5 - Tugas Mandiri: Jaringan Jalan Antar Kota
+# ==========================================================
+# Kasus yang dipilih: Kasus 1, yaitu jaringan jalan antar kota.
+# Program ini menggunakan algoritma Kruskal untuk mencari MST.
+
+# Daftar edge: (bobot, kota1, kota2)
+edges = [
+    (5, 'Bogor', 'Jakarta'),
+    (2, 'Bogor', 'Depok'),
+    (3, 'Depok', 'Jakarta'),
+    (6, 'Jakarta', 'Bandung'),
+    (4, 'Depok', 'Bandung')
+]
+
+# Daftar node/kota
+nodes = ['Bogor', 'Jakarta', 'Depok', 'Bandung']
+
+# Membuat parent untuk setiap kota
+parent = {}
+for node in nodes:
+    parent[node] = node
+
+
+def find(node):
+    # Fungsi untuk mencari parent utama dari suatu node
+    if parent[node] != node:
+        parent[node] = find(parent[node])
+    return parent[node]
+
+
+def union(node1, node2):
+    # Fungsi untuk menggabungkan dua node yang belum berada dalam kelompok sama
+    root1 = find(node1)
+    root2 = find(node2)
+
+    if root1 != root2:
+        parent[root2] = root1
+        return True
+    return False
+
+
+# Mengurutkan edge dari bobot terkecil ke terbesar
+edges.sort()
+
+mst = []
+total_weight = 0
+
+for weight, u, v in edges:
+    # Edge dipilih jika tidak membentuk cycle
+    if union(u, v):
+        mst.append((u, v, weight))
+        total_weight += weight
+
+print("Minimum Spanning Tree Jaringan Jalan Antar Kota:")
+for edge in mst:
+    print(edge)
+
+print("Total bobot minimum =", total_weight)
+
+# Jawaban Analisis:
+# 1. Kasus yang dipilih adalah Kasus 1, yaitu Jaringan Jalan Antar Kota.
+# 2. Algoritma yang digunakan adalah Kruskal.
+# 3. Edge yang dipilih dalam MST adalah Bogor-Depok, Depok-Jakarta, dan Depok-Bandung.
+# 4. Total bobot MST adalah 9.
+# 5. Edge Bogor-Jakarta tidak dipilih karena Bogor dan Jakarta sudah terhubung melalui
+#    Depok. Edge Jakarta-Bandung juga tidak dipilih karena Bandung sudah terhubung
+#    melalui Depok. Jika edge tersebut dipilih, akan membentuk cycle dan menambah bobot.
